@@ -1,159 +1,165 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_text_field.dart';
+import 'driver_home_screen.dart';
+import 'driver_start_verification_screen.dart';
+import 'driver_history_screen.dart';
+import 'login_screen.dart';
 
-class DriverSection extends StatelessWidget {
+class DriverSection extends StatefulWidget {
   const DriverSection({super.key});
+
+  @override
+  State<DriverSection> createState() => _DriverSectionState();
+}
+
+class _DriverSectionState extends State<DriverSection> {
+  int _currentIndex = 0;
+  final PageController _pageController = PageController();
+
+  final List<Widget> _screens = [
+    const DriverHomeScreen(),
+    const DriverStartVerificationScreen(),
+    const DriverHistoryScreen(),
+    const Center(child: Text('Profile')),
+  ];
+
+  void _logout() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 40),
-                const Text(
-                  'Mi Conductor',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFFF8A00),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Soluciones de conducción premium - Conductor',
-                  style: TextStyle(
-                    fontSize: 14,
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        children: _screens,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+            _pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+          });
+        },
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: _currentIndex == 0
+                ? Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFF8A00),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Text(
+                      'Preparar',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )
+                : const Icon(
+                    Icons.home_outlined,
                     color: Colors.grey,
                   ),
-                ),
-                const SizedBox(height: 40),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF0F4F8),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Bienvenido Conductor',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Ingresa tus credenciales para acceder a tu cuenta de conductor.',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-                      const CustomTextField(
-                        labelText: 'CORREO ELECTRÓNICO',
-                        hintText: 'ejemplo@dominio.com',
-                        prefixIcon: Icons.email_outlined,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      const SizedBox(height: 16),
-                      const CustomTextField(
-                        labelText: 'CONTRASEÑA',
-                        prefixIcon: Icons.lock_outlined,
-                        suffixIcon: Icons.visibility_off_outlined,
-                        obscureText: true,
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: false,
-                                onChanged: (value) {},
-                              ),
-                              const Text(
-                                'Recuérdame',
-                                style: TextStyle(fontSize: 12, color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              '¿Olvidaste tu contraseña?',
-                              style: TextStyle(fontSize: 12, color: Colors.grey),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFFF8A00),
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                          child: const Text(
-                            'Iniciar Sesión como Conductor',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-                const Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        '© 2024 Mi Conductor. Premium Driving Solutions.',
-                        style: TextStyle(fontSize: 10, color: Colors.grey),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Privacy Policy',
-                            style: TextStyle(fontSize: 10, color: Colors.grey),
-                          ),
-                          SizedBox(width: 16),
-                          Text(
-                            'Terms of Service',
-                            style: TextStyle(fontSize: 10, color: Colors.grey),
-                          ),
-                          SizedBox(width: 16),
-                          Text(
-                            'Help Center',
-                            style: TextStyle(fontSize: 10, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            label: '',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: _currentIndex == 1
+                ? Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFFF8A00),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.map,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                  )
+                : const Icon(
+                    Icons.map_outlined,
+                    color: Colors.grey,
+                    size: 24,
+                  ),
+            label: 'Mapa',
+          ),
+          BottomNavigationBarItem(
+            icon: _currentIndex == 2
+                ? Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFFF8A00),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.history,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                  )
+                : const Icon(
+                    Icons.history_outlined,
+                    color: Colors.grey,
+                    size: 24,
+                  ),
+            label: 'Historial',
+          ),
+          BottomNavigationBarItem(
+            icon: _currentIndex == 3
+                ? Container(
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFFF8A00),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                  )
+                : const Icon(
+                    Icons.person_outlined,
+                    color: Colors.grey,
+                    size: 24,
+                  ),
+            label: 'Perfil',
+          ),
+        ],
+        selectedItemColor: const Color(0xFFFF8A00),
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+      ),
+      appBar: AppBar(
+        title: const Text('Mi Conductor'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: _logout,
+            icon: const Icon(Icons.logout),
+            color: Colors.black,
+          ),
+        ],
       ),
     );
   }

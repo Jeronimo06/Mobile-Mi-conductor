@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'request_received_screen.dart';
+import 'notifications_screen.dart';
 
 class RequestRideScreen extends StatelessWidget {
   const RequestRideScreen({super.key});
@@ -68,24 +69,33 @@ class RequestRideScreen extends StatelessWidget {
                   ),
 
                   // Notificaciones
-                  Container(
-                    width: 44,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.15),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const NotificationsScreen(),
                         ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.notifications_outlined,
-                      color: Colors.grey,
-                      size: 24,
+                      );
+                    },
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.15),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.notifications_outlined,
+                        color: Colors.grey,
+                        size: 24,
+                      ),
                     ),
                   ),
                 ],

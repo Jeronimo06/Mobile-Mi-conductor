@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'register_screen.dart';
 import 'login_screen.dart';
 import 'request_ride_screen.dart';
 import 'my_vehicles_screen.dart';
 
 class ClientSection extends StatefulWidget {
-  const ClientSection({super.key});
+  final bool isGuest;
+
+  const ClientSection({super.key, required this.isGuest});
 
   @override
   State<ClientSection> createState() => _ClientSectionState();
@@ -21,6 +22,13 @@ class _ClientSectionState extends State<ClientSection> {
     const Center(child: Text('Activity')),
     const Center(child: Text('Profile')),
   ];
+
+  void _logout() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +148,18 @@ class _ClientSectionState extends State<ClientSection> {
         selectedItemColor: const Color(0xFFFF8A00),
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
+      ),
+      appBar: AppBar(
+        title: widget.isGuest ? const Text('Modo Invitado') : const Text('Mi Conductor'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: _logout,
+            icon: const Icon(Icons.logout),
+            color: Colors.black,
+          ),
+        ],
       ),
     );
   }

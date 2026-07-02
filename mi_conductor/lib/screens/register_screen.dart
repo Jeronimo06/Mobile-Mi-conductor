@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_text_field.dart';
+import 'client_section.dart';
+import 'login_screen.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  bool _isLoading = false;
+
+  void _register() async {
+    setState(() {
+      _isLoading = true;
+    });
+    // Simulate registration
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      _isLoading = false;
+    });
+    // Navigate to client section
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const ClientSection(isGuest: false)),
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,32 +40,44 @@ class RegisterScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 40),
+                const SizedBox(height: 24),
+                // Botón de regreso
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF5F7F8),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 32),
                 const Text(
-                  'Mi Conductor',
+                  'Crea tu Cuenta',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFFF8A00),
+                    color: Colors.black,
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Premium Mobility Solutions',
+                Text(
+                  'Regístrate como cliente para usar todos los servicios.',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey,
+                    color: Colors.grey[600],
                   ),
                 ),
                 const SizedBox(height: 40),
-                const Text(
-                  'Registro de Usuario',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 24),
                 const CustomTextField(
                   labelText: 'NOMBRE COMPLETO',
                   hintText: 'Tu nombre',
@@ -81,10 +118,10 @@ class RegisterScreen extends StatelessWidget {
                       value: false,
                       onChanged: (value) {},
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Acepto los Términos y Condiciones y la Política de Privacidad',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ),
                   ],
@@ -93,7 +130,7 @@ class RegisterScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _isLoading ? null : _register,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFFF8A00),
                       foregroundColor: Colors.white,
@@ -102,22 +139,51 @@ class RegisterScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    child: const Text(
-                      'Crear Cuenta →',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
+                    child: _isLoading
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : const Text(
+                            'Crear Cuenta',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 32),
                 Center(
                   child: TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      '¿Ya tienes una cuenta? Inicia Sesión',
-                      style: TextStyle(color: Colors.grey),
+                    onPressed: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        (route) => false,
+                      );
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
+                        children: const [
+                          TextSpan(text: '¿Ya tienes cuenta? '),
+                          TextSpan(
+                            text: 'Inicia Sesión',
+                            style: TextStyle(
+                              color: Color(0xFFFF8A00),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
+                const SizedBox(height: 40),
               ],
             ),
           ),
