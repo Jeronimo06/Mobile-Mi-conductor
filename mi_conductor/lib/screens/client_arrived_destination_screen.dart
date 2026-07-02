@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'driver_home_screen.dart';
+import 'client_section.dart';
 
-class ArrivedDestinationScreen extends StatefulWidget {
-  const ArrivedDestinationScreen({super.key});
+class ClientArrivedDestinationScreen extends StatefulWidget {
+  const ClientArrivedDestinationScreen({super.key});
 
   @override
-  State<ArrivedDestinationScreen> createState() => _ArrivedDestinationScreenState();
+  State<ClientArrivedDestinationScreen> createState() =>
+      _ClientArrivedDestinationScreenState();
 }
 
-class _ArrivedDestinationScreenState extends State<ArrivedDestinationScreen> {
+class _ClientArrivedDestinationScreenState
+    extends State<ClientArrivedDestinationScreen> {
+  int _rating = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +48,7 @@ class _ArrivedDestinationScreenState extends State<ArrivedDestinationScreen> {
                 ),
               ),
               const SizedBox(height: 40),
-              // Passenger info
+              // Driver info
               Container(
                 width: 80,
                 height: 80,
@@ -60,7 +64,7 @@ class _ArrivedDestinationScreenState extends State<ArrivedDestinationScreen> {
               ),
               const SizedBox(height: 16),
               const Text(
-                'María González',
+                'Julian Vance',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -106,6 +110,38 @@ class _ArrivedDestinationScreenState extends State<ArrivedDestinationScreen> {
                 ],
               ),
               const SizedBox(height: 40),
+              // Rating section
+              const Text(
+                'Califica el servicio',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 1; i <= 5; i++)
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _rating = i;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Icon(
+                          i <= _rating ? Icons.star : Icons.star_border,
+                          color: const Color(0xFFFFB800),
+                          size: 48,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 40),
               // Finalizar viaje button
               SizedBox(
                 width: double.infinity,
@@ -113,7 +149,7 @@ class _ArrivedDestinationScreenState extends State<ArrivedDestinationScreen> {
                   onPressed: () {
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                        builder: (context) => const DriverHomeScreen(),
+                        builder: (context) => const ClientSection(isGuest: false),
                       ),
                       (route) => false,
                     );

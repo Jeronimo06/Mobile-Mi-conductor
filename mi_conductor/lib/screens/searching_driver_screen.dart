@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'arrived_destination_screen.dart';
+import 'request_received_screen.dart';
 
 class SearchingDriverScreen extends StatefulWidget {
   const SearchingDriverScreen({super.key});
@@ -218,13 +218,13 @@ class _SearchingDriverScreenState extends State<SearchingDriverScreen> with Sing
                             );
                           },
                           onEnd: () {
-                            // Navegar a la pantalla de llegada después de encontrar el conductor
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ArrivedDestinationScreen(),
-                              ),
-                            );
+                            // Navegar a la pantalla de solicitud recibida después de encontrar el conductor
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RequestReceivedScreen(),
+                      ),
+                    );
                           },
                         ),
                       ),

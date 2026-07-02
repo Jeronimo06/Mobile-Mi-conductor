@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'driver_navigation_screen.dart';
+import 'driver_vehicle_evidence_screen.dart';
 import 'notifications_screen.dart';
 
 class DriverHomeScreen extends StatelessWidget {
@@ -387,7 +387,7 @@ class DriverHomeScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const DriverNavigationScreen(),
+                              builder: (context) => const DriverVehicleEvidenceScreen(),
                             ),
                           );
                         },

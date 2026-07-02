@@ -130,7 +130,7 @@ class ClientHistoryScreen extends StatelessWidget {
     required Color color,
   }) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -146,8 +146,8 @@ class ClientHistoryScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 48,
-            height: 48,
+            width: 44,
+            height: 44,
             decoration: BoxDecoration(
               color: color.withOpacity(0.15),
               shape: BoxShape.circle,
@@ -155,26 +155,32 @@ class ClientHistoryScreen extends StatelessWidget {
             child: Icon(
               icon,
               color: color,
-              size: 28,
+              size: 24,
             ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+          const SizedBox(height: 12),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
           const SizedBox(height: 4),
           Text(
             label,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 12,
               color: Colors.grey[600],
               fontWeight: FontWeight.w500,
             ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
@@ -208,14 +214,18 @@ class ClientHistoryScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                date,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey[500],
-                  fontWeight: FontWeight.w500,
+              Flexible(
+                child: Text(
+                  date,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.w500,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
+              const SizedBox(width: 8),
               Text(
                 amount,
                 style: const TextStyle(
@@ -254,17 +264,21 @@ class ClientHistoryScreen extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
                     Row(
                       children: [
                         for (int i = 0; i < 5; i++)
-                          Icon(
-                            Icons.star,
-                            color: i < rating
-                                ? const Color(0xFFFFB800)
-                                : Colors.grey[300],
-                            size: 16,
+                          Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.star,
+                              color: i < rating
+                                  ? const Color(0xFFFFB800)
+                                  : Colors.grey[300],
+                              size: 16,
+                            ),
                           ),
                       ],
                     ),
@@ -315,6 +329,8 @@ class ClientHistoryScreen extends StatelessWidget {
                         color: Colors.grey[700],
                         fontWeight: FontWeight.w500,
                       ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -324,6 +340,8 @@ class ClientHistoryScreen extends StatelessWidget {
                         color: Colors.grey[700],
                         fontWeight: FontWeight.w500,
                       ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                   ],
                 ),

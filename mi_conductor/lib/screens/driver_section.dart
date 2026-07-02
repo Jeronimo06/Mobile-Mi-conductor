@@ -19,7 +19,7 @@ class _DriverSectionState extends State<DriverSection> {
     const DriverHomeScreen(),
     const DriverStartVerificationScreen(),
     const DriverHistoryScreen(),
-    const _DriverLogoutScreen(),
+    const _DriverProfileScreen(),
   ];
 
   @override
@@ -51,7 +51,7 @@ class _DriverSectionState extends State<DriverSection> {
           BottomNavigationBarItem(
             icon: _currentIndex == 0
                 ? Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: const Color(0xFFFF8A00),
                       borderRadius: BorderRadius.circular(20),
@@ -125,95 +125,240 @@ class _DriverSectionState extends State<DriverSection> {
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
-                      Icons.logout,
+                      Icons.person,
                       color: Colors.white,
                       size: 22,
                     ),
                   )
                 : const Icon(
-                    Icons.logout_outlined,
+                    Icons.person_outlined,
                     color: Colors.grey,
                     size: 24,
                   ),
-            label: 'Cerrar Sesión',
+            label: 'Perfil',
           ),
         ],
         selectedItemColor: const Color(0xFFFF8A00),
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
       ),
     );
   }
 }
 
-class _DriverLogoutScreen extends StatelessWidget {
-  const _DriverLogoutScreen();
+class _DriverProfileScreen extends StatelessWidget {
+  const _DriverProfileScreen();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7F8),
       body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFFF8A00),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 64,
-                  ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 24),
+              const Text(
+                'Tu perfil',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Tu perfil de conductor',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+              ),
+              const SizedBox(height: 32),
+              // User info card
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(32),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.06),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 48),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                        (route) => false,
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFF8A00),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 18),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFFF8A00),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 56,
                       ),
                     ),
-                    child: const Text(
-                      'Cerrar Sesión',
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Juan Pérez',
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'juan.perez@email.com',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '+52 1 234 567 890',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              // Profile options
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.06),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    _buildProfileOption(
+                      icon: Icons.edit,
+                      label: 'Editar Perfil',
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: Colors.grey[200],
+                    ),
+                    _buildProfileOption(
+                      icon: Icons.directions_car,
+                      label: 'Vehículo',
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: Colors.grey[200],
+                    ),
+                    _buildProfileOption(
+                      icon: Icons.help_outline,
+                      label: 'Ayuda y Soporte',
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: Colors.grey[200],
+                    ),
+                    _buildProfileOption(
+                      icon: Icons.settings,
+                      label: 'Configuración',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              // Logout button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text(
+                    'Cerrar Sesión',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 32),
+            ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileOption({
+    required IconData icon,
+    required String label,
+  }) {
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(24),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        child: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF5F7F8),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                icon,
+                color: const Color(0xFFFF8A00),
+                size: 22,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Icon(
+              Icons.chevron_right,
+              color: Colors.grey[400],
+              size: 24,
+            ),
+          ],
         ),
       ),
     );

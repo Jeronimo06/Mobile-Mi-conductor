@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'driver_start_verification_screen.dart';
-import 'driver_arrived_screen.dart';
+import 'arrived_destination_screen.dart';
 
 class DriverNavigationScreen extends StatelessWidget {
   const DriverNavigationScreen({super.key});
@@ -28,231 +27,208 @@ class DriverNavigationScreen extends StatelessWidget {
             ),
           ),
 
-          // Header
+          // Tarjeta de indicaciones de giro (Google Maps style)
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Botón de menú
+                  // Header + Directions card
                   Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.menu,
-                      color: Colors.black,
-                      size: 24,
-                    ),
-                  ),
-
-                  // Ganancias y estado
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
                         ),
                       ],
                     ),
-                    child: Row(
+                    child: Column(
                       mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                      const Text(
-                        '\$428.50',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE8F5E9),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Text(
-                          'ONLINE',
-                          style: TextStyle(
-                            color: Color(0xFF2E7D32),
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  ),
-
-                  // Botón de perfil
-                  Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.person,
-                      color: Colors.black,
-                      size: 24,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          // Tarjeta de indicaciones de giro
-          SafeArea(
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-              padding: const EdgeInsets.only(bottom: 120, left: 16),
-              child: Container(
-                width: 220,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 20,
-                      offset: const Offset(0, 8),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Icono de giro
-                    Container(
-                      width: 56,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFF8A00),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                        size: 32,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'IN 200M',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    const Text(
-                      'Turn right on Av. Reforma',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    // Tiempo y distancia
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                        // Top row: back button + earnings/status + profile
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            // Botón de menú/back
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                              width: 48,
+                              height: 48,
                               decoration: BoxDecoration(
                                 color: const Color(0xFFF5F7FA),
-                                borderRadius: BorderRadius.circular(12),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.arrow_back,
+                                color: Colors.black,
+                                size: 24,
+                              ),
+                            ),
+
+                            // Ganancias y estado
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF5F7FA),
+                                borderRadius: BorderRadius.circular(24),
                               ),
                               child: Row(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(Icons.access_time, size: 16, color: Colors.grey),
-                                  const SizedBox(width: 4),
                                   const Text(
-                                    '14:32',
+                                    '\$428.50',
                                     style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFE8F5E9),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: const Text(
+                                      'ONLINE',
+                                      style: TextStyle(
+                                        color: Color(0xFF2E7D32),
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 0.5,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 8),
+
+                            // Botón de perfil
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFFF8A00),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Text(
-                                '12 min',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                              width: 48,
+                              height: 48,
                               decoration: BoxDecoration(
                                 color: const Color(0xFFF5F7FA),
-                                borderRadius: BorderRadius.circular(12),
+                                shape: BoxShape.circle,
                               ),
-                              child: const Text(
-                                '4.2 km',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                              child: const Icon(
+                                Icons.person,
+                                color: Colors.black,
+                                size: 24,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        // Directions info
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Icono de giro
+                            Container(
+                              width: 64,
+                              height: 64,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFF8A00),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                                size: 36,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            // Text info
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'IN 200M',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 1,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  const Text(
+                                    'Turn right on Av. Reforma',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  // Tiempo y distancia (bottom part of directions)
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.access_time, size: 18, color: Colors.grey),
+                                          const SizedBox(width: 4),
+                                          const Text(
+                                            '14:32',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFFF8A00),
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        child: const Text(
+                                          '12 min',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.route, size: 18, color: Colors.grey),
+                                          const SizedBox(width: 4),
+                                          const Text(
+                                            '4.2 km',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ),
           ),
 
           // Botones circulares en el lado derecho
@@ -312,48 +288,40 @@ class DriverNavigationScreen extends StatelessWidget {
               ),
             ),
           ),
-
-          // Bottom navigation bar
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 24, left: 16, right: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(32),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 20,
-                    offset: const Offset(0, -8),
+          
+          // Botón para finalizar viaje
+          SafeArea(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ArrivedDestinationScreen(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFF8A00),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(28),
+                      ),
+                    ),
+                    child: const Text(
+                      'Llegué al Destino',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
-                ],
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildNavButton(
-                    icon: Icons.dashboard_outlined,
-                    label: 'DASHBOARD',
-                    isActive: false,
-                  ),
-                  _buildNavButton(
-                    icon: Icons.bar_chart,
-                    label: 'ACTIVITY',
-                    isActive: true,
-                  ),
-                  _buildNavButton(
-                    icon: Icons.attach_money,
-                    label: 'EARNINGS',
-                    isActive: false,
-                  ),
-                  _buildNavButton(
-                    icon: Icons.person_outline,
-                    label: 'ACCOUNT',
-                    isActive: false,
-                  ),
-                ],
+                ),
               ),
             ),
           ),
@@ -362,39 +330,7 @@ class DriverNavigationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNavButton({
-    required IconData icon,
-    required String label,
-    required bool isActive,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: isActive ? const Color(0xFFFF8A00) : Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isActive ? Colors.white : Colors.grey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isActive ? Colors.white : Colors.grey,
-              fontSize: 9,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.5,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 }
 
 class RouteMapPainter extends CustomPainter {

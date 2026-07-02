@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'driver_arrived_screen.dart';
+import 'client_arrived_destination_screen.dart';
 
 class DriverAssignedScreen extends StatefulWidget {
   const DriverAssignedScreen({super.key});
@@ -17,7 +17,7 @@ class _DriverAssignedScreenState extends State<DriverAssignedScreen> {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const DriverArrivedScreen(),
+            builder: (context) => const ClientArrivedDestinationScreen(),
           ),
         );
       }
