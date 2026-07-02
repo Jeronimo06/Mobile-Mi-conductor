@@ -50,7 +50,7 @@ class RequestReceivedScreen extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Checkmark
+                      // Icono de viaje
                       Container(
                         width: 100,
                         height: 100,
@@ -59,7 +59,7 @@ class RequestReceivedScreen extends StatelessWidget {
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
-                          Icons.check,
+                          Icons.directions_car,
                           color: Colors.white,
                           size: 50,
                         ),
@@ -68,7 +68,7 @@ class RequestReceivedScreen extends StatelessWidget {
 
                       // Título
                       const Text(
-                        '¡Solicitud\nRecibida!',
+                        'Información del\nViaje',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 32,
@@ -79,32 +79,41 @@ class RequestReceivedScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
 
-                      // Descripción
-                      Text(
-                        'En unos momentos un asesor se contactará contigo al número proporcionado para continuar con la contratación de servicio premium.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.grey[700],
-                          height: 1.4,
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-
-                      // Chips
+                      // Chips de información del viaje
                       Column(
                         children: [
-                          _buildInfoChip(
-                            icon: Icons.directions_car_outlined,
-                            label1: 'TIPO DE SERVICIO',
-                            label2: 'Servicio Express',
+                          _buildTripInfoChip(
+                            icon: Icons.location_on,
+                            label1: 'ORIGEN',
+                            label2: 'Torre Virreyes, Pedregal 24',
                           ),
                           const SizedBox(height: 16),
-                          _buildInfoChip(
-                            icon: Icons.access_time_outlined,
-                            label1: 'ESTADO DE SOLICITUD',
-                            label2: 'Esperando por Asesor',
+                          _buildTripInfoChip(
+                            icon: Icons.location_pin,
+                            label1: 'DESTINO',
+                            label2: 'Aeropuerto Internacional',
                           ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildSmallInfoChip(
+                                  icon: Icons.access_time,
+                                  label1: 'TIEMPO',
+                                  label2: '32 min',
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: _buildSmallInfoChip(
+                                  icon: Icons.route,
+                                  label1: 'DISTANCIA',
+                                  label2: '18.4 km',
+                                ),
+                              ),
+                            ],
+                          ),
+
                         ],
                       ),
                       const SizedBox(height: 48),
@@ -149,10 +158,11 @@ class RequestReceivedScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoChip({
+  Widget _buildTripInfoChip({
     required IconData icon,
     required String label1,
     required String label2,
+    Color? color,
   }) {
     return Container(
       width: double.infinity,
@@ -167,12 +177,12 @@ class RequestReceivedScreen extends StatelessWidget {
             width: 44,
             height: 44,
             decoration: BoxDecoration(
-              color: const Color(0xFFE0E0E0),
+              color: color?.withOpacity(0.15) ?? const Color(0xFFE0E0E0),
               shape: BoxShape.circle,
             ),
             child: Icon(
               icon,
-              color: Colors.grey[700],
+              color: color ?? Colors.grey[700],
               size: 24,
             ),
           ),
@@ -196,10 +206,60 @@ class RequestReceivedScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: Colors.grey[800],
+                    color: color ?? Colors.grey[800],
                   ),
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSmallInfoChip({
+    required IconData icon,
+    required String label1,
+    required String label2,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5F7FA),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              color: const Color(0xFFFF8A00),
+              size: 22,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            label1,
+            style: TextStyle(
+              fontSize: 10,
+              color: Colors.grey[500],
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.6,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label2,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
             ),
           ),
         ],

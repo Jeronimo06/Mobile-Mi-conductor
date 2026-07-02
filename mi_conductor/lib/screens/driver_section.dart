@@ -19,15 +19,8 @@ class _DriverSectionState extends State<DriverSection> {
     const DriverHomeScreen(),
     const DriverStartVerificationScreen(),
     const DriverHistoryScreen(),
-    const Center(child: Text('Profile')),
+    const _DriverLogoutScreen(),
   ];
-
-  void _logout() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-      (route) => false,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +57,7 @@ class _DriverSectionState extends State<DriverSection> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Text(
-                      'Preparar',
+                      'Inicio',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -132,34 +125,96 @@ class _DriverSectionState extends State<DriverSection> {
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
-                      Icons.person,
+                      Icons.logout,
                       color: Colors.white,
                       size: 22,
                     ),
                   )
                 : const Icon(
-                    Icons.person_outlined,
+                    Icons.logout_outlined,
                     color: Colors.grey,
                     size: 24,
                   ),
-            label: 'Perfil',
+            label: 'Cerrar Sesión',
           ),
         ],
         selectedItemColor: const Color(0xFFFF8A00),
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
       ),
-      appBar: AppBar(
-        title: const Text('Mi Conductor'),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: _logout,
-            icon: const Icon(Icons.logout),
-            color: Colors.black,
+    );
+  }
+}
+
+class _DriverLogoutScreen extends StatelessWidget {
+  const _DriverLogoutScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F7F8),
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFF8A00),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 64,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                const Text(
+                  'Tu perfil de conductor',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 48),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFF8A00),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: const Text(
+                      'Cerrar Sesión',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }

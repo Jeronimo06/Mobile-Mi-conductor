@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'request_ride_screen.dart';
 import 'my_vehicles_screen.dart';
+import 'client_history_screen.dart';
+import 'client_profile_screen.dart';
 
 class ClientSection extends StatefulWidget {
   final bool isGuest;
@@ -19,8 +21,8 @@ class _ClientSectionState extends State<ClientSection> {
   final List<Widget> _screens = [
     const RequestRideScreen(),
     const MyVehiclesScreen(),
-    const Center(child: Text('Activity')),
-    const Center(child: Text('Profile')),
+    const ClientHistoryScreen(),
+    const ClientProfileScreen(),
   ];
 
   void _logout() {
@@ -76,7 +78,7 @@ class _ClientSectionState extends State<ClientSection> {
                     color: Colors.grey,
                     size: 24,
                   ),
-            label: 'home',
+            label: 'Inicio',
           ),
           BottomNavigationBarItem(
             icon: _currentIndex == 1
@@ -98,7 +100,7 @@ class _ClientSectionState extends State<ClientSection> {
                     color: Colors.grey,
                     size: 24,
                   ),
-            label: 'Services',
+            label: 'Vehículos',
           ),
           BottomNavigationBarItem(
             icon: _currentIndex == 2
@@ -120,7 +122,7 @@ class _ClientSectionState extends State<ClientSection> {
                     color: Colors.grey,
                     size: 24,
                   ),
-            label: 'Activity',
+            label: 'Actividad',
           ),
           BottomNavigationBarItem(
             icon: _currentIndex == 3
@@ -142,7 +144,7 @@ class _ClientSectionState extends State<ClientSection> {
                     color: Colors.grey,
                     size: 24,
                   ),
-            label: 'Profile',
+            label: 'Perfil',
           ),
         ],
         selectedItemColor: const Color(0xFFFF8A00),

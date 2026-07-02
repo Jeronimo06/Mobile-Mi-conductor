@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DriverHistoryScreen extends StatelessWidget {
-  const DriverHistoryScreen({super.key});
+class ClientHistoryScreen extends StatelessWidget {
+  const ClientHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class DriverHistoryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Viajes realizados y ganancias',
+                'Viajes realizados y pedidos anteriores',
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[600],
@@ -38,7 +38,7 @@ class DriverHistoryScreen extends StatelessWidget {
                     child: _buildStatCard(
                       icon: Icons.attach_money,
                       value: '\$1,240.50',
-                      label: 'Ganancias Totales',
+                      label: 'Gastos Totales',
                       color: const Color(0xFFFF8A00),
                     ),
                   ),
@@ -89,7 +89,7 @@ class DriverHistoryScreen extends StatelessWidget {
               // Tarjeta de viaje 1
               _buildTripCard(
                 date: 'Hoy, 14:30',
-                passenger: 'Alejandro S.',
+                driver: 'Alejandro S.',
                 from: 'Torre Virreyes, Pedregal 24',
                 to: 'Aeropuerto Internacional',
                 amount: '\$42.50',
@@ -99,7 +99,7 @@ class DriverHistoryScreen extends StatelessWidget {
               // Tarjeta de viaje 2
               _buildTripCard(
                 date: 'Hoy, 12:15',
-                passenger: 'Marcio Hernandez',
+                driver: 'Marcio Hernandez',
                 from: 'Centro Histórico',
                 to: 'Zona Rosa',
                 amount: '\$28.00',
@@ -109,7 +109,7 @@ class DriverHistoryScreen extends StatelessWidget {
               // Tarjeta de viaje 3
               _buildTripCard(
                 date: 'Ayer, 19:45',
-                passenger: 'Carla M.',
+                driver: 'Carla M.',
                 from: 'Condesa',
                 to: 'Polanco',
                 amount: '\$35.50',
@@ -183,7 +183,7 @@ class DriverHistoryScreen extends StatelessWidget {
 
   Widget _buildTripCard({
     required String date,
-    required String passenger,
+    required String driver,
     required String from,
     required String to,
     required String amount,
@@ -237,7 +237,7 @@ class DriverHistoryScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
-                  Icons.person,
+                  Icons.drive_eta,
                   color: Colors.white,
                   size: 28,
                 ),
@@ -248,7 +248,7 @@ class DriverHistoryScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pasajero: $passenger',
+                      'Conductor: $driver',
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
