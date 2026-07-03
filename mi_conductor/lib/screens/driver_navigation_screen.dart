@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'driver_report_novelty_screen.dart';
 import 'arrived_destination_screen.dart';
 
 class DriverNavigationScreen extends StatelessWidget {
@@ -163,7 +164,7 @@ class DriverNavigationScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   const Text(
-                                    'Turn right on Av. Reforma',
+                                    'Gira a la derecha en Av. Reforma',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w700,
@@ -240,7 +241,38 @@ class DriverNavigationScreen extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Botón 1
+                    // Botón reportar novedad
+                    Container(
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const DriverReportNoveltyScreen(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.warning_amber_rounded,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    // Botón mi ubicación
                     Container(
                       width: 48,
                       height: 48,
@@ -262,7 +294,7 @@ class DriverNavigationScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    // Botón 2
+                    // Botón capas
                     Container(
                       width: 48,
                       height: 48,
@@ -288,7 +320,7 @@ class DriverNavigationScreen extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Botón para finalizar viaje
           SafeArea(
             child: Align(
@@ -329,8 +361,6 @@ class DriverNavigationScreen extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
 class RouteMapPainter extends CustomPainter {

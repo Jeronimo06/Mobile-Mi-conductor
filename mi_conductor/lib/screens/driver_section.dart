@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'driver_home_screen.dart';
-import 'driver_start_verification_screen.dart';
 import 'driver_history_screen.dart';
 import 'login_screen.dart';
+import 'edit_profile_screen.dart';
+import 'help_support_screen.dart';
+import 'settings_screen.dart';
 
 class DriverSection extends StatefulWidget {
   const DriverSection({super.key});
@@ -17,7 +19,6 @@ class _DriverSectionState extends State<DriverSection> {
 
   final List<Widget> _screens = [
     const DriverHomeScreen(),
-    const DriverStartVerificationScreen(),
     const DriverHistoryScreen(),
     const _DriverProfileScreen(),
   ];
@@ -81,28 +82,6 @@ class _DriverSectionState extends State<DriverSection> {
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
-                      Icons.map,
-                      color: Colors.white,
-                      size: 22,
-                    ),
-                  )
-                : const Icon(
-                    Icons.map_outlined,
-                    color: Colors.grey,
-                    size: 24,
-                  ),
-            label: 'Mapa',
-          ),
-          BottomNavigationBarItem(
-            icon: _currentIndex == 2
-                ? Container(
-                    width: 40,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFFF8A00),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
                       Icons.history,
                       color: Colors.white,
                       size: 22,
@@ -116,7 +95,7 @@ class _DriverSectionState extends State<DriverSection> {
             label: 'Historial',
           ),
           BottomNavigationBarItem(
-            icon: _currentIndex == 3
+            icon: _currentIndex == 2
                 ? Container(
                     width: 40,
                     height: 40,
@@ -249,15 +228,13 @@ class _DriverProfileScreen extends StatelessWidget {
                     _buildProfileOption(
                       icon: Icons.edit,
                       label: 'Editar Perfil',
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: Colors.grey[200],
-                    ),
-                    _buildProfileOption(
-                      icon: Icons.directions_car,
-                      label: 'Vehículo',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const EditProfileScreen(),
+                          ),
+                        );
+                      },
                     ),
                     Container(
                       width: double.infinity,
@@ -267,6 +244,13 @@ class _DriverProfileScreen extends StatelessWidget {
                     _buildProfileOption(
                       icon: Icons.help_outline,
                       label: 'Ayuda y Soporte',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const HelpSupportScreen(),
+                          ),
+                        );
+                      },
                     ),
                     Container(
                       width: double.infinity,
@@ -276,6 +260,13 @@ class _DriverProfileScreen extends StatelessWidget {
                     _buildProfileOption(
                       icon: Icons.settings,
                       label: 'Configuración',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SettingsScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -321,9 +312,10 @@ class _DriverProfileScreen extends StatelessWidget {
   Widget _buildProfileOption({
     required IconData icon,
     required String label,
+    required VoidCallback onTap,
   }) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),

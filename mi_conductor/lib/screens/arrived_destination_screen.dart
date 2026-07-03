@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'driver_home_screen.dart';
+import 'driver_section.dart';
 
 class ArrivedDestinationScreen extends StatefulWidget {
   const ArrivedDestinationScreen({super.key});
@@ -113,7 +113,7 @@ class _ArrivedDestinationScreenState extends State<ArrivedDestinationScreen> {
                   onPressed: () {
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                        builder: (context) => const DriverHomeScreen(),
+                        builder: (context) => const DriverSection(),
                       ),
                       (route) => false,
                     );

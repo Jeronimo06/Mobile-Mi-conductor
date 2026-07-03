@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'edit_profile_screen.dart';
+import 'payment_methods_screen.dart';
+import 'favorite_addresses_screen.dart';
+import 'help_support_screen.dart';
+import 'settings_screen.dart';
+import 'terms_policies_screen.dart';
+import 'login_screen.dart';
 
 class ClientProfileScreen extends StatelessWidget {
   const ClientProfileScreen({super.key});
@@ -108,6 +115,13 @@ class ClientProfileScreen extends StatelessWidget {
                     _buildProfileOption(
                       icon: Icons.edit,
                       label: 'Editar Perfil',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const EditProfileScreen(),
+                          ),
+                        );
+                      },
                     ),
                     Container(
                       width: double.infinity,
@@ -117,6 +131,13 @@ class ClientProfileScreen extends StatelessWidget {
                     _buildProfileOption(
                       icon: Icons.payment,
                       label: 'Métodos de Pago',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const PaymentMethodsScreen(),
+                          ),
+                        );
+                      },
                     ),
                     Container(
                       width: double.infinity,
@@ -126,6 +147,13 @@ class ClientProfileScreen extends StatelessWidget {
                     _buildProfileOption(
                       icon: Icons.location_on,
                       label: 'Direcciones Favoritas',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const FavoriteAddressesScreen(),
+                          ),
+                        );
+                      },
                     ),
                     Container(
                       width: double.infinity,
@@ -135,6 +163,13 @@ class ClientProfileScreen extends StatelessWidget {
                     _buildProfileOption(
                       icon: Icons.help_outline,
                       label: 'Ayuda y Soporte',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const HelpSupportScreen(),
+                          ),
+                        );
+                      },
                     ),
                     Container(
                       width: double.infinity,
@@ -144,6 +179,13 @@ class ClientProfileScreen extends StatelessWidget {
                     _buildProfileOption(
                       icon: Icons.settings,
                       label: 'Configuración',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SettingsScreen(),
+                          ),
+                        );
+                      },
                     ),
                     Container(
                       width: double.infinity,
@@ -153,11 +195,48 @@ class ClientProfileScreen extends StatelessWidget {
                     _buildProfileOption(
                       icon: Icons.privacy_tip_outlined,
                       label: 'Términos y Políticas',
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const TermsPoliciesScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 24),
+              // Logout button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text(
+                    'Cerrar Sesión',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
             ],
           ),
         ),
@@ -168,9 +247,10 @@ class ClientProfileScreen extends StatelessWidget {
   Widget _buildProfileOption({
     required IconData icon,
     required String label,
+    required VoidCallback onTap,
   }) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       borderRadius: BorderRadius.circular(24),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),

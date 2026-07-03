@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'arrived_destination_screen.dart';
+import 'driver_navigation_screen.dart';
 
 class DriverArrivedScreen extends StatelessWidget {
   const DriverArrivedScreen({super.key});
@@ -423,7 +423,7 @@ class DriverArrivedScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const ArrivedDestinationScreen(),
+                            builder: (context) => const DriverNavigationScreen(),
                           ),
                         );
                       },
