@@ -365,10 +365,9 @@ class _CheckItem extends StatelessWidget {
   final bool isChecked;
 
   const _CheckItem({
-    Key? key,
     required this.label,
     required this.isChecked,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

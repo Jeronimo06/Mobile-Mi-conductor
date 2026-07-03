@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'driver_navigation_screen.dart';
+import 'driver_cancel_reason_screen.dart';
+import 'driver_arrived_screen.dart';
 
 class DriverVehicleEvidenceScreen extends StatefulWidget {
   const DriverVehicleEvidenceScreen({super.key});
@@ -30,24 +31,27 @@ class _DriverVehicleEvidenceScreenState
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.08),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.arrow_back_ios_rounded,
-                      color: Colors.black,
-                      size: 20,
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.08),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Colors.black,
+                        size: 20,
+                      ),
                     ),
                   ),
                   const Text(
@@ -69,7 +73,7 @@ class _DriverVehicleEvidenceScreenState
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF2E8B57),
+                        color: Color(0xFF2E7D32),
                       ),
                     ),
                   ),
@@ -173,7 +177,7 @@ class _DriverVehicleEvidenceScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _PhotoSlot(
+                        _buildPhotoSlot(
                           label: 'Frente',
                           hasPhoto: false,
                           onTap: () {
@@ -182,12 +186,12 @@ class _DriverVehicleEvidenceScreenState
                             });
                           },
                         ),
-                        _PhotoSlot(
+                        _buildPhotoSlot(
                           label: 'Lateral Izq.',
                           hasPhoto: false,
                           onTap: () {},
                         ),
-                        _PhotoSlot(
+                        _buildPhotoSlot(
                           label: 'Lateral Der.',
                           hasPhoto: false,
                           onTap: () {},
@@ -198,17 +202,17 @@ class _DriverVehicleEvidenceScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _PhotoSlot(
+                        _buildPhotoSlot(
                           label: 'Trasera',
                           hasPhoto: false,
                           onTap: () {},
                         ),
-                        _PhotoSlot(
+                        _buildPhotoSlot(
                           label: 'Interior',
                           hasPhoto: false,
                           onTap: () {},
                         ),
-                        _PhotoSlot(
+                        _buildPhotoSlot(
                           label: 'Tablero',
                           hasPhoto: false,
                           onTap: () {},
@@ -248,7 +252,7 @@ class _DriverVehicleEvidenceScreenState
                       ),
                     ),
                     const SizedBox(height: 20),
-                    _CheckItem(
+                    _buildCheckItem(
                       label: 'Vehículo en buen estado',
                       isChecked: _checklist[0],
                       onTap: () {
@@ -258,7 +262,7 @@ class _DriverVehicleEvidenceScreenState
                       },
                     ),
                     const SizedBox(height: 16),
-                    _CheckItem(
+                    _buildCheckItem(
                       label: 'Limpieza verificada',
                       isChecked: _checklist[1],
                       onTap: () {
@@ -268,7 +272,7 @@ class _DriverVehicleEvidenceScreenState
                       },
                     ),
                     const SizedBox(height: 16),
-                    _CheckItem(
+                    _buildCheckItem(
                       label: 'Nivel de combustible / Carga OK',
                       isChecked: _checklist[2],
                       onTap: () {
@@ -283,6 +287,37 @@ class _DriverVehicleEvidenceScreenState
 
               const SizedBox(height: 28),
 
+              // Cancel Button
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const DriverCancelReasonScreen(),
+                      ),
+                    );
+                  },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.red,
+                    side: const BorderSide(color: Colors.red, width: 2),
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                  ),
+                  child: const Text(
+                    'Cancelar',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
               // Continue Button
               SizedBox(
                 width: double.infinity,
@@ -291,7 +326,7 @@ class _DriverVehicleEvidenceScreenState
                       ? () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const DriverNavigationScreen(),
+                              builder: (context) => const DriverArrivedScreen(),
                             ),
                           );
                         }
@@ -309,7 +344,7 @@ class _DriverVehicleEvidenceScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Continuar a Navegación',
+                        'Continuar',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -329,22 +364,12 @@ class _DriverVehicleEvidenceScreenState
       ),
     );
   }
-}
 
-class _PhotoSlot extends StatelessWidget {
-  final String label;
-  final bool hasPhoto;
-  final VoidCallback onTap;
-
-  const _PhotoSlot({
-    Key? key,
-    required this.label,
-    required this.hasPhoto,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildPhotoSlot({
+    required String label,
+    required bool hasPhoto,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -394,22 +419,12 @@ class _PhotoSlot extends StatelessWidget {
       ),
     );
   }
-}
 
-class _CheckItem extends StatelessWidget {
-  final String label;
-  final bool isChecked;
-  final VoidCallback onTap;
-
-  const _CheckItem({
-    Key? key,
-    required this.label,
-    required this.isChecked,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildCheckItem({
+    required String label,
+    required bool isChecked,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Row(

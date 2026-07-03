@@ -9,113 +9,96 @@ class DriverHistoryScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF5F7F8),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
               const Text(
-                'Historial de\nServicios',
+                'Historial de Servicios',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                'Viajes realizados y ganancias',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                ),
-              ),
               const SizedBox(height: 24),
-              // Tarjetas de stats
-              Row(
+
+              // Stats Grid
+              GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  Expanded(
-                    child: _buildStatCard(
-                      icon: Icons.attach_money,
-                      value: '\$1,240.50',
-                      label: 'Ganancias Totales',
-                      color: const Color(0xFFFF8A00),
-                    ),
+                  _buildStatCard(
+                    icon: Icons.attach_money,
+                    value: '\$1,250',
+                    label: 'Gastos Totales',
+                    color: Colors.green,
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildStatCard(
-                      icon: Icons.directions_car,
-                      value: '84',
-                      label: 'Viajes',
-                      color: const Color(0xFF4A90E2),
-                    ),
+                  _buildStatCard(
+                    icon: Icons.local_taxi,
+                    value: '45',
+                    label: 'Viajes Realizados',
+                    color: Colors.blue,
+                  ),
+                  _buildStatCard(
+                    icon: Icons.route,
+                    value: '1,250 km',
+                    label: 'Distancia Recorrida',
+                    color: Colors.orange,
+                  ),
+                  _buildStatCard(
+                    icon: Icons.star,
+                    value: '4.8',
+                    label: 'Calificación Promedio',
+                    color: Colors.amber,
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildStatCard(
-                      icon: Icons.route,
-                      value: '156.4 km',
-                      label: 'Distancia Recorrida',
-                      color: const Color(0xFF2E8B57),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildStatCard(
-                      icon: Icons.star,
-                      value: '4.95',
-                      label: 'Calificación Promedio',
-                      color: const Color(0xFFFFB800),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              // Lista de viajes
+
+              const SizedBox(height: 32),
+
+              // Recent Rides Header
               const Text(
                 'Viajes Recientes',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
               const SizedBox(height: 16),
-              // Tarjeta de viaje 1
-              _buildTripCard(
+
+              // Recent Rides List
+              _buildRideCard(
                 date: 'Hoy, 14:30',
-                passenger: 'Alejandro S.',
-                from: 'Torre Virreyes, Pedregal 24',
-                to: 'Aeropuerto Internacional',
-                amount: '\$42.50',
-                rating: 5,
+                pickup: 'Centro Histórico',
+                destination: 'Zona Rosa',
+                amount: '\$85',
+                driver: 'Carlos R.',
+                driverRating: 4.9,
               ),
               const SizedBox(height: 12),
-              // Tarjeta de viaje 2
-              _buildTripCard(
-                date: 'Hoy, 12:15',
-                passenger: 'Marcio Hernandez',
-                from: 'Centro Histórico',
-                to: 'Zona Rosa',
-                amount: '\$28.00',
-                rating: 5,
+              _buildRideCard(
+                date: 'Ayer, 09:15',
+                pickup: 'Polanco',
+                destination: 'Aeropuerto',
+                amount: '\$150',
+                driver: 'María G.',
+                driverRating: 4.8,
               ),
               const SizedBox(height: 12),
-              // Tarjeta de viaje 3
-              _buildTripCard(
-                date: 'Ayer, 19:45',
-                passenger: 'Carla M.',
-                from: 'Condesa',
-                to: 'Polanco',
-                amount: '\$35.50',
-                rating: 4,
+              _buildRideCard(
+                date: '12 Ene, 18:45',
+                pickup: 'Condesa',
+                destination: 'Roma Norte',
+                amount: '\$65',
+                driver: 'Luis M.',
+                driverRating: 4.7,
               ),
-              const SizedBox(height: 24),
             ],
           ),
         ),
@@ -130,7 +113,7 @@ class DriverHistoryScreen extends StatelessWidget {
     required Color color,
   }) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -142,9 +125,39 @@ class DriverHistoryScreen extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
           Container(
             width: 48,
             height: 48,
@@ -158,42 +171,25 @@ class DriverHistoryScreen extends StatelessWidget {
               size: 28,
             ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[600],
-              fontWeight: FontWeight.w500,
-            ),
-          ),
         ],
       ),
     );
   }
 
-  Widget _buildTripCard({
+  Widget _buildRideCard({
     required String date,
-    required String passenger,
-    required String from,
-    required String to,
+    required String pickup,
+    required String destination,
     required String amount,
-    required int rating,
+    required String driver,
+    required double driverRating,
   }) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
@@ -211,62 +207,68 @@ class DriverHistoryScreen extends StatelessWidget {
               Text(
                 date,
                 style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey[500],
+                  fontSize: 14,
+                  color: Colors.grey[600],
                   fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
                 amount,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFFFF8A00),
+                  color: Colors.black,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
           Row(
             children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFF8A00),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 28,
-                ),
+              Column(
+                children: [
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  Container(
+                    width: 2,
+                    height: 30,
+                    color: Colors.grey[300],
+                  ),
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFF8A00),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Pasajero: $passenger',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
+                      pickup,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        for (int i = 0; i < 5; i++)
-                          Icon(
-                            Icons.star,
-                            color: i < rating
-                                ? const Color(0xFFFFB800)
-                                : Colors.grey[300],
-                            size: 16,
-                          ),
-                      ],
+                    const SizedBox(height: 12),
+                    Text(
+                      destination,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
                     ),
                   ],
                 ),
@@ -274,58 +276,75 @@ class DriverHistoryScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          // Ruta
+          Container(
+            height: 1,
+            width: double.infinity,
+            color: Colors.grey[200],
+          ),
+          const SizedBox(height: 16),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
+              Row(
                 children: [
                   Container(
-                    width: 10,
-                    height: 10,
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF5F7FA),
                       shape: BoxShape.circle,
                     ),
-                  ),
-                  Container(
-                    width: 2,
-                    height: 24,
-                    color: Colors.grey[300],
-                  ),
-                  Container(
-                    width: 10,
-                    height: 10,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFFF8A00),
-                      shape: BoxShape.circle,
+                    child: const Icon(
+                      Icons.person,
+                      color: Colors.black,
                     ),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        driver,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            driverRating.toString(),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      from,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      to,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE8F9F0),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Text(
+                  'Completado',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF2E7D32),
+                  ),
                 ),
               ),
             ],

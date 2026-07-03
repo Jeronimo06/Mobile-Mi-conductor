@@ -25,13 +25,6 @@ class _ClientSectionState extends State<ClientSection> {
     const ClientProfileScreen(),
   ];
 
-  void _logout() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-      (route) => false,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,13 +148,6 @@ class _ClientSectionState extends State<ClientSection> {
         title: widget.isGuest ? const Text('Modo Invitado') : const Text('Mi Conductor'),
         backgroundColor: Colors.white,
         elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: _logout,
-            icon: const Icon(Icons.logout),
-            color: Colors.black,
-          ),
-        ],
       ),
     );
   }

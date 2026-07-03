@@ -12,35 +12,62 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  int _selectedRole = -1; // -1 = ninguno, 0 = cliente, 1 = conductor
   bool _isLoading = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  // Hardcoded credentials
+  static const String _clientEmail = 'cliente@example.com';
+  static const String _clientPassword = 'cliente123';
+  static const String _driverEmail = 'conductor@example.com';
+  static const String _driverPassword = 'conductor123';
 
   void _login() async {
-    if (_selectedRole == -1) {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor, selecciona un rol')),
+        const SnackBar(content: Text('Por favor, completa todos los campos')),
       );
       return;
     }
+
     setState(() {
       _isLoading = true;
     });
+
     // Simulate login
     await Future.delayed(const Duration(seconds: 2));
+
     setState(() {
       _isLoading = false;
     });
-    // Navigate to respective section
-    if (_selectedRole == 1) {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const DriverSection()),
-        (route) => false,
-      );
+
+    // Validate credentials
+    if (email == _clientEmail && password == _clientPassword) {
+      // Navigate to client section
+      if (mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const ClientSection(isGuest: false)),
+          (route) => false,
+        );
+      }
+    } else if (email == _driverEmail && password == _driverPassword) {
+      // Navigate to driver section
+      if (mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const DriverSection()),
+          (route) => false,
+        );
+      }
     } else {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const ClientSection(isGuest: false)),
-        (route) => false,
-      );
+      // Invalid credentials
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Correo o contraseña incorrectos')),
+        );
+      }
     }
   }
 
@@ -49,6 +76,13 @@ class _LoginScreenState extends State<LoginScreen> {
       MaterialPageRoute(builder: (context) => const ClientSection(isGuest: true)),
       (route) => false,
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -102,147 +136,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                const Text(
-                  'Selecciona tu rol',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                // Botones de rol
-                Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedRole = 0;
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: _selectedRole == 0
-                                ? const Color(0xFFFF8A00).withOpacity(0.1)
-                                : const Color(0xFFF5F7F8),
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: _selectedRole == 0
-                                  ? const Color(0xFFFF8A00)
-                                  : Colors.transparent,
-                              width: 2,
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: _selectedRole == 0
-                                      ? const Color(0xFFFF8A00)
-                                      : Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.person,
-                                  color: _selectedRole == 0
-                                      ? Colors.white
-                                      : Colors.black,
-                                  size: 28,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'Cliente',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: _selectedRole == 0
-                                      ? const Color(0xFFFF8A00)
-                                      : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedRole = 1;
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: _selectedRole == 1
-                                ? const Color(0xFFFF8A00).withOpacity(0.1)
-                                : const Color(0xFFF5F7F8),
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: _selectedRole == 1
-                                  ? const Color(0xFFFF8A00)
-                                  : Colors.transparent,
-                              width: 2,
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: _selectedRole == 1
-                                      ? const Color(0xFFFF8A00)
-                                      : Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.drive_eta,
-                                  color: _selectedRole == 1
-                                      ? Colors.white
-                                      : Colors.black,
-                                  size: 28,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'Conductor',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: _selectedRole == 1
-                                      ? const Color(0xFFFF8A00)
-                                      : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 32),
                 // Campos de texto
-                const CustomTextField(
+                CustomTextField(
                   labelText: 'CORREO ELECTRÓNICO',
                   hintText: 'ejemplo@dominio.com',
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
+                  controller: _emailController,
                 ),
                 const SizedBox(height: 16),
-                const CustomTextField(
+                CustomTextField(
                   labelText: 'CONTRASEÑA',
                   prefixIcon: Icons.lock_outlined,
                   suffixIcon: Icons.visibility_off_outlined,
                   obscureText: true,
+                  controller: _passwordController,
                 ),
                 const SizedBox(height: 8),
                 Row(
