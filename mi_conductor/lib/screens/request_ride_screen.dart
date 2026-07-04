@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'request_received_screen.dart';
+import 'client_home_screen.dart';
 import 'notifications_screen.dart';
 
 class RequestRideScreen extends StatelessWidget {
@@ -193,7 +193,7 @@ class RequestRideScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const RequestReceivedScreen(),
+                        builder: (context) => const ClientHomeScreen(),
                       ),
                     );
                   },

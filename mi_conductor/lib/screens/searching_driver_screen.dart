@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'request_received_screen.dart';
+import 'client_driver_tracking_screen.dart';
 
 class SearchingDriverScreen extends StatefulWidget {
   const SearchingDriverScreen({super.key});
@@ -218,11 +218,11 @@ class _SearchingDriverScreenState extends State<SearchingDriverScreen> with Sing
                             );
                           },
                           onEnd: () {
-                            // Navegar a la pantalla de solicitud recibida después de encontrar el conductor
+                            // Navegar a la pantalla de seguimiento después de encontrar el conductor
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const RequestReceivedScreen(),
+                        builder: (context) => const ClientDriverTrackingScreen(),
                       ),
                     );
                           },
@@ -298,30 +298,7 @@ class _SearchingDriverScreenState extends State<SearchingDriverScreen> with Sing
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        onTap: (index) {},
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.design_services_outlined),
-            label: 'Services',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.access_time),
-            label: 'Activity',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-        selectedItemColor: const Color(0xFFFF8A00),
-      ),
+
     );
   }
 }

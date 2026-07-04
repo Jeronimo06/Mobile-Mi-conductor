@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'edit_profile_screen.dart';
-import 'payment_methods_screen.dart';
 import 'favorite_addresses_screen.dart';
 import 'help_support_screen.dart';
 import 'settings_screen.dart';
@@ -119,22 +118,6 @@ class ClientProfileScreen extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => const EditProfileScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: Colors.grey[200],
-                    ),
-                    _buildProfileOption(
-                      icon: Icons.payment,
-                      label: 'Métodos de Pago',
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const PaymentMethodsScreen(),
                           ),
                         );
                       },

@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
+  final VoidCallback? onSuffixIconTap;
   final bool obscureText;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
@@ -15,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     this.hintText,
     this.prefixIcon,
     this.suffixIcon,
+    this.onSuffixIconTap,
     this.obscureText = false,
     this.keyboardType,
     this.controller,
@@ -35,7 +37,12 @@ class CustomTextField extends StatelessWidget {
           labelText: labelText,
           hintText: hintText,
           prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: Colors.grey) : null,
-          suffixIcon: suffixIcon != null ? Icon(suffixIcon, color: Colors.grey) : null,
+          suffixIcon: suffixIcon != null
+              ? GestureDetector(
+                  onTap: onSuffixIconTap,
+                  child: Icon(suffixIcon, color: Colors.grey),
+                )
+              : null,
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),
