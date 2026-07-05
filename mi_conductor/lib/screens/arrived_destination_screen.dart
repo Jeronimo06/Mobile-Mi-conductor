@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'driver_section.dart';
+import 'driver_vehicle_delivery_verification.dart';
 
 class ArrivedDestinationScreen extends StatefulWidget {
   const ArrivedDestinationScreen({super.key});
@@ -111,11 +111,10 @@ class _ArrivedDestinationScreenState extends State<ArrivedDestinationScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushAndRemoveUntil(
+                    Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const DriverSection(),
+                        builder: (context) => const DriverVehicleDeliveryVerification(),
                       ),
-                      (route) => false,
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -127,7 +126,7 @@ class _ArrivedDestinationScreenState extends State<ArrivedDestinationScreen> {
                     ),
                   ),
                   child: const Text(
-                    'Finalizar Servicio',
+                    'Continuar',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

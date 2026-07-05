@@ -3,6 +3,8 @@ import '../widgets/custom_text_field.dart';
 import 'client_section.dart';
 import 'driver_section.dart';
 import 'register_screen.dart';
+import 'guest_welcome_screen.dart';
+import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
+  bool _obscurePassword = true;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -72,9 +75,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _guest() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const ClientSection(isGuest: true)),
-      (route) => false,
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const GuestWelcomeScreen()),
     );
   }
 
@@ -148,8 +150,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomTextField(
                   labelText: 'CONTRASEÑA',
                   prefixIcon: Icons.lock_outlined,
-                  suffixIcon: Icons.visibility_off_outlined,
-                  obscureText: true,
+                  suffixIcon: _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                  obscureText: _obscurePassword,
+                  onSuffixIconTap: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
                   controller: _passwordController,
                 ),
                 const SizedBox(height: 8),
@@ -172,7 +179,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordScreen(),
+                          ),
+                        );
+                      },
                       child: Text(
                         '¿Olvidaste tu contraseña?',
                         style: TextStyle(

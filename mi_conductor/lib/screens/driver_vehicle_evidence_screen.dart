@@ -287,37 +287,6 @@ class _DriverVehicleEvidenceScreenState
 
               const SizedBox(height: 28),
 
-              // Cancel Button
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const DriverCancelReasonScreen(),
-                      ),
-                    );
-                  },
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.red,
-                    side: const BorderSide(color: Colors.red, width: 2),
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(28),
-                    ),
-                  ),
-                  child: const Text(
-                    'Cancelar',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
               // Continue Button
               SizedBox(
                 width: double.infinity,
@@ -353,6 +322,37 @@ class _DriverVehicleEvidenceScreenState
                       SizedBox(width: 8),
                       Icon(Icons.arrow_forward),
                     ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Cancel Button
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const DriverCancelReasonScreen(),
+                      ),
+                    );
+                  },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.red,
+                    side: const BorderSide(color: Colors.red, width: 2),
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                  ),
+                  child: const Text(
+                    'Cancelar',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),

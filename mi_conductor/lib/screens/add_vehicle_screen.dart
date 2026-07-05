@@ -15,6 +15,11 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
   final _platesController = TextEditingController();
   final _colorController = TextEditingController();
   final _yearController = TextEditingController();
+  final Map<String, bool> _documents = {
+    'Tarjeta de Circulación': false,
+    'Seguro': false,
+    'Verificación': false,
+  };
 
   @override
   void dispose() {
@@ -38,6 +43,55 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
       );
       Navigator.of(context).pop(newVehicle);
     }
+  }
+
+  Widget _buildDocumentCard(String title) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _documents[title] = !_documents[title]!;
+        });
+      },
+      child: Container(
+        width: 110,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        decoration: BoxDecoration(
+          color: _documents[title]! ? const Color(0xFFFFF3E0) : const Color(0xFFF5F7FA),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: _documents[title]! ? const Color(0xFFFF8A00) : Colors.grey[300]!,
+            width: 2,
+          ),
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: _documents[title]! ? const Color(0xFFFF8A00) : Colors.grey[300],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                _documents[title]! ? Icons.check_circle : Icons.camera_alt_outlined,
+                color: _documents[title]! ? Colors.white : Colors.grey[600],
+                size: 28,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: _documents[title]! ? const Color(0xFFFF8A00) : Colors.grey[600],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -103,6 +157,26 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
                   prefixIcon: Icons.calendar_today_outlined,
                   keyboardType: TextInputType.number,
                   controller: _yearController,
+                ),
+                const SizedBox(height: 28),
+                // Sección de documentos
+                const Text(
+                  'FOTOS DE DOCUMENTOS',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                    letterSpacing: 1.2,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildDocumentCard('Tarjeta de Circulación'),
+                    _buildDocumentCard('Seguro'),
+                    _buildDocumentCard('Verificación'),
+                  ],
                 ),
                 const SizedBox(height: 32),
                 SizedBox(
