@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'guest_arrived_screen.dart';
+import 'chat_screen.dart';
 
 class GuestTrackingScreen extends StatelessWidget {
   const GuestTrackingScreen({super.key});
@@ -194,10 +195,18 @@ class GuestTrackingScreen extends StatelessWidget {
                                       color: const Color(0xFFF0F4F8),
                                       shape: BoxShape.circle,
                                     ),
-                                    child: const Icon(
-                                      Icons.phone,
-                                      color: Color(0xFFFF8A00),
-                                      size: 22,
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.phone,
+                                        color: Color(0xFFFF8A00),
+                                        size: 22,
+                                      ),
+                                      onPressed: () {
+                                        // Call functionality
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Llamando a Juan Pérez...')),
+                                        );
+                                      },
                                     ),
                                   ),
                                   const SizedBox(width: 12),
@@ -208,10 +217,19 @@ class GuestTrackingScreen extends StatelessWidget {
                                       color: const Color(0xFFF0F4F8),
                                       shape: BoxShape.circle,
                                     ),
-                                    child: const Icon(
-                                      Icons.message,
-                                      color: Color(0xFFFF8A00),
-                                      size: 22,
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.message,
+                                        color: Color(0xFFFF8A00),
+                                        size: 22,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => const ChatScreen(driverName: 'Juan Pérez'),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],

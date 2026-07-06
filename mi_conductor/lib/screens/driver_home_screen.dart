@@ -505,6 +505,7 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
                       const SizedBox(height: 20),
                       Text(
                         'Estás fuera de servicio',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

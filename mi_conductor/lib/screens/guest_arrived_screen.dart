@@ -80,12 +80,6 @@ class GuestArrivedScreen extends StatelessWidget {
                             child: Column(
                               children: [
                                 _buildInfoRow(
-                                  icon: Icons.attach_money,
-                                  label: 'Total',
-                                  value: '\$150.00',
-                                ),
-                                const Divider(height: 32),
-                                _buildInfoRow(
                                   icon: Icons.timer_outlined,
                                   label: 'Duración',
                                   value: '25 min',

@@ -12,6 +12,8 @@ class GuestRideFormScreen extends StatefulWidget {
 class _GuestRideFormScreenState extends State<GuestRideFormScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _documentTypeController = TextEditingController();
+  final TextEditingController _documentNumberController = TextEditingController();
   final TextEditingController _pickupController = TextEditingController();
   final TextEditingController _destinationController = TextEditingController();
   final TextEditingController _vehicleBrandController = TextEditingController();
@@ -26,6 +28,8 @@ class _GuestRideFormScreenState extends State<GuestRideFormScreen> {
   void _submitRequest() {
     if (_nameController.text.trim().isEmpty ||
         _phoneController.text.trim().isEmpty ||
+        _documentTypeController.text.trim().isEmpty ||
+        _documentNumberController.text.trim().isEmpty ||
         _pickupController.text.trim().isEmpty ||
         _destinationController.text.trim().isEmpty ||
         _vehicleBrandController.text.trim().isEmpty ||
@@ -53,6 +57,8 @@ class _GuestRideFormScreenState extends State<GuestRideFormScreen> {
   void dispose() {
     _nameController.dispose();
     _phoneController.dispose();
+    _documentTypeController.dispose();
+    _documentNumberController.dispose();
     _pickupController.dispose();
     _destinationController.dispose();
     _vehicleBrandController.dispose();
@@ -277,6 +283,28 @@ class _GuestRideFormScreenState extends State<GuestRideFormScreen> {
                                 prefixIcon: Icons.phone_outlined,
                                 keyboardType: TextInputType.phone,
                                 controller: _phoneController,
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomTextField(
+                                      labelText: 'TIPO DE DOCUMENTO',
+                                      hintText: 'Ej. DNI, Pasaporte',
+                                      prefixIcon: Icons.badge_outlined,
+                                      controller: _documentTypeController,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: CustomTextField(
+                                      labelText: 'DOCUMENTO',
+                                      hintText: 'Ej. 12345678',
+                                      prefixIcon: Icons.credit_card_outlined,
+                                      controller: _documentNumberController,
+                                    ),
+                                  ),
+                                ],
                               ),
                               const SizedBox(height: 16),
 

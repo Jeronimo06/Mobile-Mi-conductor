@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'client_arrival_confirmation_screen.dart';
+import 'chat_screen.dart';
 
 class ClientDriverTrackingScreen extends StatelessWidget {
   const ClientDriverTrackingScreen({super.key});
@@ -196,10 +197,17 @@ class ClientDriverTrackingScreen extends StatelessWidget {
                                 color: const Color(0xFFF5F7FA),
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(
-                                Icons.call,
-                                color: Color(0xFFFF8A00),
-                                size: 20,
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.call,
+                                  color: Color(0xFFFF8A00),
+                                  size: 20,
+                                ),
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('Llamando a Julian Vance...')),
+                                  );
+                                },
                               ),
                             ),
                             const SizedBox(width: 12),
@@ -210,10 +218,19 @@ class ClientDriverTrackingScreen extends StatelessWidget {
                                 color: const Color(0xFFF5F7FA),
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(
-                                Icons.message_outlined,
-                                color: Color(0xFFFF8A00),
-                                size: 20,
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.message_outlined,
+                                  color: Color(0xFFFF8A00),
+                                  size: 20,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const ChatScreen(driverName: 'Julian Vance'),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ],
